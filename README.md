@@ -17,6 +17,9 @@ $ mlink http://thisisaverylongurlexample.com/omg=12345`
 ===========================================================================
 ````
 
+## Live Example
+This code is running on the [UberWorld](http://uberworld.org) talker, where I created this link: http://uberworld.org/url/e296.
+
 ## Requirements
 
 1. Functioning [Playground Plus](https://github.com/talkers/pgplus) talk server.
