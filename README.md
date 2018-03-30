@@ -4,7 +4,7 @@ A link generator for Playground Plus talkers.
 ## Usage
 
 ```
-$ mlink http://thisisaverylongurlexample.com/omg=12345`
+$ mlink http://thisisaverylongurlexample.com/omg=12345
 
 =================== You have added the following link:  ===================
 
