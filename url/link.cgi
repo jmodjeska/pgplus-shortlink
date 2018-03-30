@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # Short link web forwarding
-# (c) 2018 by (Jeremy Modjeska)
+# (c) 2018 by Raindog (Jeremy Modjeska)
 # Updated 2018.03.29
 # https://github.com/jmodjeska/pgplus_shortlink/
 #
