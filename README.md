@@ -30,7 +30,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
 1. Add `shoterlink.c` to `/src`.
 
-1. Update line 300 of `shorterlink.c` with your talker's URL and the path to the short link redirector, e.g.:
+1. Update line 300 of `shorterlink.c` with your talker's URL and the path to your talker's website where you plan to install the short link redirector (I recommend talker.com/url/), e.g.:
 
     ```
     "\n ^RShort link to this URL is: http://talker.com/url/%s.^N\n", sl_link);
