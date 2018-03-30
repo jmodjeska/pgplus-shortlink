@@ -36,7 +36,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     "\n ^RShort link to this URL is: http://talker.com/url/%s.^N\n", sl_link);
     ```
 
-1. Insert the following into `src/version.c` at [line 157](https://github.com/talkers/pgplus/blob/master/src/version.c#L157):
+1. Replace `src/version.c` with the one provided, or insert the following code at [line 157](https://github.com/talkers/pgplus/blob/master/src/version.c#L157):
 
     ```
 
@@ -49,7 +49,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
     ```
 
-1. Add the following to `src/include/clist.h` at [line 165](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L165):
+1. Replace `src/include/clist.h` with the one provided, or insert the following code at [line 165](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L165):
 
     ```
 
@@ -58,7 +58,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
     ```
 
-1. Add the following to `src/include/clist.h` at [line 868](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L868):
+1. Replace `src/include/clist.h` with the one provided, or insert the following code at [line 868](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L868):
 
     ```
     
@@ -66,7 +66,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     
     ```
 
-1. Add the following to the end of `doc/help`:
+1. Replace `doc/help` with the one provided, or insert the following code at the end:
 
     ```
     
@@ -93,6 +93,8 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     chmod 644 links.log 
     chmod 644 linkslog.txt
     ```
+
+1. Recompile using the standard PG+ compilation process.
 
 ## Installation & Configuration: Website
 
