@@ -1,4 +1,4 @@
-# Short Link
+# Short Link for PG+
 A link generator for Playground Plus talkers.
 
 ## Usage
@@ -36,7 +36,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     "\n ^RShort link to this URL is: http://talker.com/url/%s.^N\n", sl_link);
     ```
 
-1. Replace `src/version.c` with the one provided, or insert the following code at [line 157](https://github.com/talkers/pgplus/blob/master/src/version.c#L157):
+1. Replace `src/version.c` with the one provided, or insert the following code at [line 149](https://github.com/talkers/pgplus/blob/master/src/version.c#L149):
 
     ```
 
@@ -87,7 +87,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     
 1. Create a social called `link` to allow people to easily share their links. If you store socials in `files/socials`, you can use the example provided. Otherwise, do it manually.
 
-1. Add the `logs` directory and the two log files provided. Ensure permissions on both log files are `644`:
+1. Add the `logs` directory at the PG+ root level (same level as `src`), including the two log files provided. Ensure permissions on both log files are `644`:
 
     ```
     chmod 644 links.log 
