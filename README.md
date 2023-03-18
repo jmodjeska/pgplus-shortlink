@@ -13,7 +13,7 @@ $ mlink http://thisisaverylongurlexample.com/omg=12345
  Short link to this URL is: http://talker_url.org/url/e123.
  To share this link with the room, type 'link e123'.
  To share on a multi or channel, use clink, rlink, etc.
-   
+
 ===========================================================================
 ````
 
@@ -61,36 +61,36 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 1. Replace `src/include/clist.h` with the one provided, or insert the following code at [line 868](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L868):
 
     ```
-    
+
     {"mlink", shorter_link, 0, 0, 1, 0, MISCc},
-    
+
     ```
 
 1. Replace `doc/help` with the one provided, or insert the following code at the end:
 
     ```
-    
+
     :mlink
 
      ^ZCommand  :^N mlink <long url>
- 
+
      ^ZDetails  :^N Creates a shorter link through the talker. Useful
                 for sharing long URLs on the talker without causing line
                 wraps.
- 
+
      ^ZNotes    :^N * URLs are limited to 500 characters
                 * After you create a link, you can share it with the room,
                   a channel, or a multi using the 'link' social
 
      ^ZSee also :^N link (social)
     ```
-    
+
 1. Create a social called `link` to allow people to easily share their links. If you store socials in `files/socials`, you can use the example provided. Otherwise, do it manually.
 
 1. Add the `logs` directory at the PG+ root level (same level as `src`), including the two log files provided. Ensure permissions on both log files are `644`:
 
     ```
-    chmod 644 links.log 
+    chmod 644 links.log
     chmod 644 linkslog.txt
     ```
 
@@ -106,15 +106,15 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     chmod 755 link.cgi
     chmod 664 link_template.html
     ```
- 
+
  1. Update the absolute paths in lines 22 and 23 of `link.cgi` to the location of the two files in the `logs` directory:
- 
+
     ```
     # Path to log files containing the links
     my $activelog = '/home/talker/logs/links.log';
     my $backuplog = '/home/talker/logs/linkslog.txt';
     ````
- 
+
 1. Customize `link_template.html` to your liking; just don't remove the three required placeholders: `<!-- META -->`, `<!-- HEADING -->`, and `<!-- CONTENT -->`.
 
 ## Maintenance
@@ -129,4 +129,6 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     ```
     # Active Prefix: __e
     ```
- 
+
+## You might also like
+[PG+ Test Harness](https://github.com/jmodjeska/pgplus-test)
