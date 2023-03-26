@@ -36,7 +36,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     "\n ^RShort link to this URL is: http://talker.com/url/%s.^N\n", sl_link);
     ```
 
-1. Replace `src/version.c` with the one provided, or insert the following code at [line 149](https://github.com/talkers/pgplus/blob/master/src/version.c#L149):
+1. Update `src/version.c` by inserting the following code at ~[line 149](https://github.com/talkers/pgplus/blob/master/src/version.c#L149):
 
     ```
 
@@ -49,7 +49,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
     ```
 
-1. Replace `src/include/clist.h` with the one provided, or insert the following code at [line 165](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L165):
+1. Update `src/include/clist.h` by inserting the following code at ~[line 165](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L165):
 
     ```
 
@@ -58,7 +58,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
     ```
 
-1. Replace `src/include/clist.h` with the one provided, or insert the following code at [line 868](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L868):
+1. Update `src/include/clist.h` by inserting the following code at ~[line 868](https://github.com/talkers/pgplus/blob/master/src/include/clist.h#L868):
 
     ```
 
@@ -66,7 +66,7 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
     ```
 
-1. Replace `doc/help` with the one provided, or insert the following code at the end:
+1. Append the following code at the end of `doc/help`:
 
     ```
 
