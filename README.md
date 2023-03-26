@@ -131,4 +131,5 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
     ```
 
 ## You might also like
-[PG+ Test Harness](https://github.com/jmodjeska/pgplus-test)
+* [PG+ Test Harness](https://github.com/jmodjeska/pgplus-test)
+* [PG+ Cocktail Recipe](https://github.com/jmodjeska/pgplus-cocktail)
