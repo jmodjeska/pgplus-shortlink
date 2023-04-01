@@ -29,7 +29,7 @@ void chomp(char *s) { s[strcspn(s, "\n")] = '\0'; }
 
 /* Function to create the version info (called by version.c) */
 
-void shorterlink_version(void) {
+void shorterlink_version() {
   ENTERFUNCTION;
   sprintf(stack, " -=> Shorter Links v0.2 (by Raindog) installed.\n");
   stack = strchr(stack, 0);
