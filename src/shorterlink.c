@@ -1,9 +1,7 @@
 /*
  * Playground+ - shorterlink.c
- * Short link for PG+
- * (c) 2018 by Raindog (Jeremy Modjeska)
- * Updated 2018.03.29
- * https://github.com/jmodjeska/pgplus_shortlink/
+ * Shorter Link code (UberWorld)
+ * Raindog 03.06.08
  * ---------------------------------------------------------------------------
  */
 
@@ -17,7 +15,7 @@
 
 #ifdef USING_DMALLOC
 #include <dmalloc.h>
-#endif
+#endif /* USING_DMALLOC */
 
 #include "include/config.h"
 #include "include/player.h"
@@ -27,33 +25,22 @@
 /* Function to remove newlines.
    Arguably easier than rewriting the talker in perl */
 
-void chomp(char *s)
-{
-  s[strcspn ( s, "\n" )] = '\0';
-}
+void chomp(char *s) { s[strcspn(s, "\n")] = '\0'; }
 
 /* Function to create the version info (called by version.c) */
 
-void shorterlink_version(void)
-{
+void shorterlink_version(void) {
   ENTERFUNCTION;
-  sprintf(stack, " -=> Shorter Links v0.1 (by Raindog) installed.\n");
+  sprintf(stack, " -=> Shorter Links v0.2 (by Raindog) installed.\n");
   stack = strchr(stack, 0);
   EXITFUNCTION;
 }
 
 /* Function to generate the link (called my mlink) */
 
-void shorter_link(player * p, char *str)
-{
-  char *spacer = (char *) NULL;
+void shorter_link(player *p, char *str) {
+  char *spacer = (char *)NULL;
   char *oldstack = stack;
-
-  ENTERFUNCTION;
-
-  /* vars get an sl_ prefix because I have no idea what might
-     conflict with other PG+ global stuff */
-
   int sl_num = 0;
   int sl_cnt = 0;
   char sl_link[32];
@@ -64,11 +51,13 @@ void shorter_link(player * p, char *str)
   char *sl_last = "0";
   char *sl_na;
 
+  ENTERFUNCTION;
+
   /* valid URL protocols by length */
-  char sl_pclh[10];   // will hold 4-length (i.e., http://)
-  char sl_pclf[10];   // will hold 3-length (i.e., ftp://)
-  char sl_pclt[10];   // will hold 6-length (i.e., telnet://)
-  char sl_pcls[10];   // will hold 5-length (i.e., https://)
+  char sl_pclh[10]; // will hold 4-length (i.e., http://)
+  char sl_pclf[10]; // will hold 3-length (i.e., ftp://)
+  char sl_pclt[10]; // will hold 6-length (i.e., telnet://)
+  char sl_pcls[10]; // will hold 5-length (i.e., https://)
 
   /* vars for fake regex stuff */
   long sl_upart = 0;
@@ -83,11 +72,9 @@ void shorter_link(player * p, char *str)
   /* Check for the links log file;
      If no log file found; inform command unavailable; exit */
 
-  FILE *fp = fopen("logs/links.log","r");
-  if (!fp)
-  {
-    tell_player(p,
-        " Sorry, can't find the links database (error logged).\n");
+  FILE *fp = fopen("logs/links.log", "r");
+  if (!fp) {
+    tell_player(p, " Sorry, can't find the links database (error logged).\n");
     log("error", "Couldn't find links.log file.");
     EXITFUNCTION;
     return;
@@ -96,16 +83,16 @@ void shorter_link(player * p, char *str)
   /* Make sure the links log file has a prefix specified on
      the first line that matches for format in sl_apre  */
 
-  sl_first[79]='\0'; /* read the first line */
+  sl_first[79] = '\0'; /* read the first line */
   fgets(sl_first, 80, fp);
 
   strncpy(sl_substr, sl_first, 16); /* get the first 16 chars */
-  sl_substr[16]='\0';
+  sl_substr[16] = '\0';
 
   if (strcmp(sl_substr, sl_apre) != 0) /* compare against sl_apre */
   {
     tell_player(p,
-       " Sorry, error reading the links database (error logged).\n");
+                " Sorry, error reading the links database (error logged).\n");
     log("error", "Couldn't find valid prefix in links.log.");
     fclose(fp);
     EXITFUNCTION;
@@ -114,15 +101,14 @@ void shorter_link(player * p, char *str)
 
   /* Validate user input */
 
-  if (!*str)
-  {
+  if (!*str) {
     tell_player(p, " Format: mlink <very long url>\n");
     fclose(fp);
     EXITFUNCTION;
     return;
   }
 
-  /* Look for a reasonable prefix */
+  /* Look for reasonable prefix */
 
   strncpy(sl_pclh, str, 7);
   sl_pclh[7] = '\0';
@@ -136,14 +122,10 @@ void shorter_link(player * p, char *str)
   strncpy(sl_pclt, str, 9);
   sl_pclt[9] = '\0';
 
-  if  (   ( strcasecmp("http://", sl_pclh) == 0 ) ||
-          ( strcasecmp("ftp://", sl_pclf) == 0 ) ||
-          ( strcasecmp("https://", sl_pcls) == 0 ) ||
-          ( strcasecmp("telnet://", sl_pclt) == 0 ) )
-  {
-    // link is OK; do nothing
-  }
-  else {
+  if (!(strcasecmp("http://", sl_pclh) == 0) &&
+      !(strcasecmp("ftp://", sl_pclf) == 0) &&
+      !(strcasecmp("https://", sl_pcls) == 0) &&
+      !(strcasecmp("telnet://", sl_pclt) == 0)) {
     tell_player(p, " This is not a valid URL.\n");
     fclose(fp);
     EXITFUNCTION;
@@ -153,39 +135,36 @@ void shorter_link(player * p, char *str)
   /* Look for forbidden characters.
      Should be a faster way to do this ... */
 
-  sl_na = strchr(str,' ');
-  while (sl_na!=NULL)
-  {
+  sl_na = strchr(str, ' ');
+  while (sl_na != NULL) {
     tell_player(p, " URL cannot contain spaces!\n");
     fclose(fp);
     EXITFUNCTION;
     return;
   }
 
- /* Allowing semicolons for now, until it results in disaster ...
+  /* Allowing semicolons for now, until it results in disaster ...
 
-  sl_na = strchr(str,';');
-  while (sl_na!=NULL)
-  {
-    tell_player(p, " URL cannot contain semicolons!\n");
-    fclose(fp);
-    EXITFUNCTION;
-    return;
-  }
+    sl_na = strchr(str,';');
+    while (sl_na!=NULL)
+    {
+      tell_player(p, " URL cannot contain semicolons!\n");
+      fclose(fp);
+      EXITFUNCTION;
+      return;
+    }
 
- */
+  */
 
-  sl_na = strchr(str,'^');
-  while (sl_na!=NULL)
-  {
+  sl_na = strchr(str, '^');
+  while (sl_na != NULL) {
     tell_player(p, " URL cannot contain control codes!\n");
     fclose(fp);
     EXITFUNCTION;
     return;
   }
-  sl_na = strchr(str,'>');
-  while (sl_na!=NULL)
-  {
+  sl_na = strchr(str, '>');
+  while (sl_na != NULL) {
     tell_player(p, " URL cannot contain '>'!\n");
     fclose(fp);
     EXITFUNCTION;
@@ -194,15 +173,13 @@ void shorter_link(player * p, char *str)
 
   /* Check length of URL */
 
-  if (strlen(str) < 16)
-  {
+  if (strlen(str) < 16) {
     tell_player(p, " That isn't a long URL!\n");
     fclose(fp);
     EXITFUNCTION;
     return;
   }
-  if (strlen(str) > 512)
-  {
+  if (strlen(str) > 512) {
     tell_player(p, " Sorry, that link is too long.\n");
     fclose(fp);
     EXITFUNCTION;
@@ -221,22 +198,20 @@ void shorter_link(player * p, char *str)
 
   /* Double-check that we have a valid prefix */
 
-  if ( *sl_pre == '\0' )
-  {
+  if (*sl_pre == '\0') {
     tell_player(p,
-       " Sorry, error reading the links database (error logged).\n");
+                " Sorry, error reading the links database (error logged).\n");
     log("error", "Prefix in links.log is not valid.");
     fclose(fp);
     EXITFUNCTION;
     return;
   }
 
-  /* Find the last line of the file */
+  /* Do something complicated to find the last line of the file */
 
-  while (fgets(sl_line, sizeof sl_line, fp) != NULL)
-  {
-    if ( (strchr(sl_line,'>')) != NULL )
-    {
+  while (fgets(sl_line, sizeof sl_line, fp) != NULL) {
+    // if ((sl_last = strstr(sl_line, ">")) != NULL)
+    if ((strchr(sl_line, '>')) != NULL) {
       sl_upart = sl_unext;
       sl_unext = ftell(fp);
       sl_cnt++;
@@ -249,15 +224,13 @@ void shorter_link(player * p, char *str)
 
   /* If our line count is only 1, we don't need to search anymore */
 
-  if ( sl_cnt == 1 )
-  {
+  if (sl_cnt == 1) {
     sl_last = strchr(sl_line, '>') + 1;
   }
 
   /* Otherwise keep looking for the last line */
 
-  else if ( sl_unext !=0 && sl_cnt > 0 )
-  {
+  else if (sl_unext != 0 && sl_cnt > 0) {
     /* find the last line with a ">" in it and save it */
 
     fseek(fp, sl_upart, SEEK_SET);
@@ -276,10 +249,8 @@ void shorter_link(player * p, char *str)
 
   int i;
 
-  for ( i = 0; i<strlen(sl_last); i++)
-  {
-    if ( ! isdigit(sl_last[i]) )
-    {
+  for (i = 0; i < strlen(sl_last); i++) {
+    if (!isdigit(sl_last[i])) {
       sl_last[i] = ' ';
     }
   }
@@ -298,12 +269,14 @@ void shorter_link(player * p, char *str)
 
   pstack_mid(p, "You have added the following link: ");
   stack += sprintf(stack, "\n %s\n", str);
-  stack += sprintf(stack,
-       "\n ^RShort link to this URL is: http://talker.com/url/%s.^N\n", sl_link);
-  stack += sprintf(stack,
-       " To share this link with the room, type 'link %s'.\n", sl_link);
-  stack += sprintf(stack,
-       " To share on a multi or channel, use clink, rlink, etc.");
+  stack += sprintf(
+      stack,
+      "\n ^RShort link to this URL is: https://uberworld.org/url/%s.^N\n",
+      sl_link);
+  stack += sprintf(
+      stack, " To share this link with the room, type 'link %s'.\n", sl_link);
+  stack +=
+      sprintf(stack, " To share on a multi or channel, use clink, rlink, etc.");
   sprintf(sl_conf, " ");
   pstack_bot(p, sl_conf);
   stack = end_string(stack);
@@ -313,6 +286,6 @@ void shorter_link(player * p, char *str)
   /* Write link to logfile (user : url => link name) */
 
   LOGF("links", "%s: %s => %s", p->name, str, sl_link);
-
+  // SW_BUT(p, " -=> Link added by %s: %s => %s\n", p->name, str, sl_link);
   EXITFUNCTION;
 }
