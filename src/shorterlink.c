@@ -1,7 +1,8 @@
 /*
  * Playground+ - shorterlink.c
  * Shorter Link code (UberWorld)
- * Raindog 03.06.08
+ * (c) 2023 by Raindog (Jeremy Modjeska)
+ * https://github.com/jmodjeska/pgplus-shortlink/
  * ---------------------------------------------------------------------------
  */
 
