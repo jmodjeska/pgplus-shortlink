@@ -32,7 +32,7 @@ void chomp(char *s) { s[strcspn(s, "\n")] = '\0'; }
 
 void shorterlink_version(void) {
   ENTERFUNCTION;
-  sprintf(stack, " -=> Shorter Links v0.2 (by Raindog) installed.\n");
+  sprintf(stack, " -=> Shorter Links v1.0 (by Raindog) installed.\n");
   stack = strchr(stack, 0);
   EXITFUNCTION;
 }
