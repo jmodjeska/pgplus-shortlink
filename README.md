@@ -132,5 +132,6 @@ This code is running on the [UberWorld](http://uberworld.org) talker, where I cr
 
 ## You might also like
 * [ChatGPT Bot for PG+](https://github.com/jmodjeska/pgplus-aiyu)
+* [PG+ Threading](https://github.com/jmodjeska/pgplus-threads)
 * [PG+ Test Harness](https://github.com/jmodjeska/pgplus-test)
 * [PG+ Cocktail Recipe](https://github.com/jmodjeska/pgplus-cocktail)
