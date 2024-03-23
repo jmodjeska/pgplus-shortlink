@@ -18,7 +18,7 @@ $ mlink http://thisisaverylongurlexample.com/omg=12345
 ````
 
 ## Live Example
-This code is running on the [UberWorld](http://uberworld.org) talker, where I created this link: http://uberworld.org/url/e296.
+This code is running on the [UberWorld](http://uberworld.org) talker, where I created this link: https://ubr.world/e296.
 
 ## Requirements
 
